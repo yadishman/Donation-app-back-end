@@ -1,4 +1,5 @@
 import Post from "../models/post.model.js";
+import { addTotalDonationAmount } from "../service/post-donation.js";
 export const createPost = async (req,resp)=>{
     try{ 
         await Post.create({
@@ -11,7 +12,7 @@ export const createPost = async (req,resp)=>{
         resp.status(201).json({message: "Post made successfuly"})
     }
     catch(error){
-        resp.status(400).json({message: "failed to create post"})
+        resp.status(400).json({message: `failed to create post ${error}`})
         console.log(error)
     }
 }
@@ -19,7 +20,7 @@ export const createPost = async (req,resp)=>{
 export const getAllPosts = async (req, resp)=>{
 
     try {
-        const posts= await Post.find()
+        const posts= await addTotalDonationAmount(await Post.find().populate('author'))
         resp.json(posts).status(200)
     }
     catch(error){
@@ -28,12 +29,12 @@ export const getAllPosts = async (req, resp)=>{
 }
 
 export const getPostById = async (req,resp)=>{
-    try{  
-        const post = await Post.findById(req.params.id)
+    try{
+        const post = await addTotalDonationAmount( await Post.findById(req.params.id).populate('author'))
         resp.json(post).status(200)
     }
     catch(error){
-        resp.json({message: `an error occured : ${error}`}).status(404)
+        resp.status(404).json({message: `an error occured : ${error}`})
     }
 
 }

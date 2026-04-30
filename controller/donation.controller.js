@@ -34,7 +34,7 @@ export const getDonationById = async (req,resp)=>{
 
 export const getDonationsByPostId = async(req, resp) =>{
     try{
-        const donations = await Donation.find({post:req.params.id})
+        const donations = await Donation.find({post:req.params.id}).populate('donor')
         resp.json(donations).status(200)
     }
     catch(error){

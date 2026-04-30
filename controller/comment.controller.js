@@ -35,7 +35,7 @@ export const getCommentById = async (req,resp)=>{
 
 export const getCommentsByPostId = async(req, resp) =>{
     try{
-        const comments = await Comment.find({post:req.params.id})
+        const comments = await Comment.find({post:req.params.id}).populate('author')
         resp.json(comments).status(200)
     }
     catch(error){
