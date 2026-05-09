@@ -7,7 +7,7 @@ export const createPost = async (req,resp)=>{
             description : req.body.description,
             budget : req.body.budget,
             image : req.file.path,
-            author : req.body.author
+            author : req.user.id
         })
         resp.status(201).json({message: "Post made successfuly"})
     }

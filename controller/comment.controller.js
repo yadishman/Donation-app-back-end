@@ -2,7 +2,12 @@ import Comment from "../models/comment.model.js";
 
 export const createComment = async (req,resp)=>{
     try{ 
-        await Comment.create(req.body)
+        const {content, post} = req.body
+        await Comment.create({
+            content,
+            post,
+            author: req.user.id
+        })
         resp.status(201).json({message: "Comment made successfuly"})
     }
     catch(error){

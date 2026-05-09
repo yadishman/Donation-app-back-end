@@ -1,11 +1,16 @@
 import Donation from "../models/donation.model.js";
 export const createDonation = async (req,resp)=>{
     try{ 
-        await Donation.create(req.body)
+        const {amount, post} = req.body
+        await Donation.create({
+            amount,
+            post,
+            donor: req.user.id
+        })
         resp.status(201).json({message: "donation made successfuly"})
     }
     catch(error){
-        resp.status(400).json({message: "failed to create user"})
+        resp.status(400).json({message: error})
         console.log(error)
     }
 }
