@@ -18,6 +18,6 @@ export const authMiddleware = async(req, resp, next )=>{
     }
 
     catch (error){
-        resp.status(401).json({message : error})
+        resp.status(401).json({message : "invalid token"})
     }
 }
