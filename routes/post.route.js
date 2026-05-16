@@ -11,4 +11,8 @@ postRoute.post("/", authMiddleware, upload.single("image"), postController.creat
 
 postRoute.get("/:id", postController.getPostById)
 
+postRoute.put("/:id", authMiddleware, upload.single("image"), postController.modifyPost)
+
+postRoute.delete("/:id", authMiddleware, postController.deletePost)
+
 export default postRoute

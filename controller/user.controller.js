@@ -28,7 +28,7 @@ export const createUser = async (req, resp) => {
             process.env.JWT_SECRET,
             {expiresIn: "5m"}
         )
-        resp.json(token)
+        resp.json({token, username})
 
     }
     catch (error) {
